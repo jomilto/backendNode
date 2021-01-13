@@ -7,7 +7,8 @@ const readableStream = new Readable({
                 this.push(null);
                 return;
             }
-            this.push(String.fromCharCode(this.currentCharCode++))
+            
+            this.push(String.fromCharCode(this.currentCharCode++));
         },100);
     }
 });
