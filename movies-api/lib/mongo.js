@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 const { config } = require('../config');
 
 const USER = encodeURIComponent(config.dbUser);
@@ -26,6 +26,36 @@ class MongoLib {
             });
         }
         return MongoClient.connection;
+    }
+
+    getAll(collection, query) {
+        this.connect().then(db => {
+            return db.collection(collection).find(query).toArray();
+        });
+    }
+
+    get(collection, id) {
+        this.connect().then(db => {
+            return db.collection(collection).findOne({ _id: ObjectId(id) });
+        });
+    }
+
+    create(collection, data) {
+        this.connect().then(db => {
+            return db.collection(collection).insertOne(data);
+        }).then(result => result.insertedId);
+    }
+
+    update(collection, id, data) {
+        this.connect().then(db => {
+            return db.collection(collection).updateOne({ _id: ObjectId(id) }, { $set: data}, { upsert: true});
+        }).then(result => result.upsertedId || id);
+    }
+
+    delete(collection, id) {
+        this.connect().then(db => {
+            return db.collection(collection).deleteOne({ _id: ObjectId(id) });
+        }).then(() => id);
     }
 }
 
