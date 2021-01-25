@@ -26,7 +26,7 @@ function moviesApi(app) {
         const { movieId } = req.params;
 
         try {
-            const movie = await moviesService.getMovie(movieId);
+            const movie = await moviesService.getMovie({movieId});
       
             res.status(200).json({
                 data: movie,
@@ -42,7 +42,6 @@ function moviesApi(app) {
 
         try {
             const created = await moviesService.createMovie({ movie });
-      
             res.status(201).json({
                 data: created,
                 message: 'movie created'
