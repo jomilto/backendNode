@@ -11,6 +11,22 @@ const moviesMock =[
     {"id":"ff5bad1c-5e05-4513-95dd-a49d0473c14f","title":"Jason Becker: Not Dead Yet","year":2003,"cover":"http://dummyimage.com/240x190.jpg/5fa2dd/ffffff","description":"Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.\n\nIn congue. Etiam justo. Etiam pretium iaculis justo.\n\nIn hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.","duration":1914,"contentRating":"NC-17","source":"http://dedecms.com/lobortis/est/phasellus.png","tags":["Drama|War"]}
 ];
 
+function filteredMoviesMock(tag) {
+    return moviesMock.filter(movie => movie.tags.includes(tag));
+}
+
+class MoviesServiceMock {
+    async getMovies() {
+        return Promise.resolve(moviesMock);
+    }
+
+    async createMovie() {
+        return Promise.resolve(moviesMock[0]);
+    }
+}
+
 module.exports = {
-    moviesMock
+    moviesMock,
+    filteredMoviesMock,
+    MoviesServiceMock
 };
