@@ -27,6 +27,8 @@ function moviesApi(app) {
 
         try {
             const movie = await moviesService.getMovie({movieId});
+
+            // throw new Error('Error getting movie');
       
             res.status(200).json({
                 data: movie,
