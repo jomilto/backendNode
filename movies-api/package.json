@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "SET DEBUG=app:* & nodemon index",
+    "dev": "SET DEBUG=express:*,app:*& nodemon index",
     "start": "SET NODE_ENV=production& node index",
-    "test": "mocha --exit"
+    "test": "mocha --exit",
+    "cover": "nyc npm run test",
+    "report": "nyc report --reporter=html"
   },
   "keywords": [],
   "author": "jomilto",
@@ -26,6 +28,7 @@
     "lint-staged": "^10.5.3",
     "mocha": "^8.2.1",
     "nodemon": "^2.0.7",
+    "nyc": "^15.1.0",
     "prettier": "^2.2.1",
     "proxyquire": "^2.1.3",
     "sinon": "^9.2.4",
@@ -37,6 +40,13 @@
     }
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix"
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "nyc": {
+    "all": true,
+    "include": ["routes", "services","lib","utils"]
   }
 }
