@@ -122,7 +122,7 @@ app.get('/auth/google-oauth', passport.authenticate("google-oauth", {
 
 app.get('/auth/google-oauth/callback', 
 passport.authenticate('google-oauth', 
-{ session: false },
+{ session: false }),
 function(req,res,next){
     if(!req.user){
         next(boom.unauthorized());
@@ -136,7 +136,7 @@ function(req,res,next){
     });
 
     res.status(200).json(user);
-}));
+});
 
 app.listen(config.port, function() {
   console.log(`Listening http://localhost:${config.port}`);

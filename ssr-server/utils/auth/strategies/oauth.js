@@ -16,7 +16,7 @@ const oAuth2Strategy = new OAuth2Strategy({
     clientSecret:config.googleClientSecret,
     callbackURL: "/auth/google-oauth/callback"
 }, async function(accessToken, refreshToken, profile, cb) {
-    const { data, status } = axios({
+    const { data, status } = await axios({
         url: `${config.apiUrl}/api/auth/sign-provider`,
         method: 'post',
         data: {
@@ -27,7 +27,7 @@ const oAuth2Strategy = new OAuth2Strategy({
         }
     });
 
-    if( !data || status !==200) {
+    if( !data || status !== 200) {
         return cb(boom.unauthorized(),false);
     }
 
